@@ -1,0 +1,40 @@
+name: CI/CD Pipeline for Python
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8
+        pip install -r requirements.txt
+
+    - name: Lint with flake8
+      run: flake8 hello_script.py --count --select=E9,F63,F7,F82 --show-source --statistics
+
+    - name: Build package
+      run: python setup.py build
+
+    - name: Deploy artifact to GitHub
+      uses: actions/upload-artifact@v3
+      with:
+        name: built-package
+        path: build/  # Сохраняет папку build с собранным пакетом
