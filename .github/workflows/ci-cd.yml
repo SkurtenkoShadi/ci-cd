@@ -14,10 +14,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Обновлено до v4 для совместимости
 
     - name: Set up Python 3.x
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5  # Обновлено до v5 (последняя стабильная)
       with:
         python-version: '3.9'
 
@@ -34,7 +34,8 @@ jobs:
       run: python setup.py build
 
     - name: Deploy artifact to GitHub
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # Обновлено до v4
       with:
         name: built-package
-        path: build/  # Сохраняет папку build с собранным пакетом
+        path: build/  # Сохраняет папку build с собранным пакетом (теперь поддерживает glob, например build/**/*)
+        retention-days: 7  # Опционально: хранить артефакт 7 дней (для лабораторной)
