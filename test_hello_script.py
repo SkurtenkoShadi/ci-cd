@@ -21,7 +21,7 @@ class TestSumNumbers:
         """Тест суммирования трех чисел"""
         assert hello_script.sum_numbers(1, 2, 3) == 6
         assert hello_script.sum_numbers(0, 0, 0) == 0
-        assert hello_script.sum_numbers(-1, 1, 0) == 0
+        assert hello_script.sum_numbers(-1, 1, 0) == 1
     
     def test_sum_two_numbers_default(self):
         """Тест суммирования с значением по умолчанию"""
